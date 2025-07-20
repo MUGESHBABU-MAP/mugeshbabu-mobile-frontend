@@ -11,6 +11,8 @@ import '../screens/support_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/services_screen.dart';
 import '../screens/legal_screen.dart';
+import '../screens/notifications_screen.dart';
+import '../screens/contact_us_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -99,6 +101,16 @@ class AppRouter {
             path: 'legal',
             name: 'legal',
             builder: (context, state) => const LegalScreen(),
+          ),
+          GoRoute(
+            path: 'notifications',
+            name: 'notifications',
+            builder: (context, state) => const NotificationsScreen(),
+          ),
+          GoRoute(
+            path: 'contact-us',
+            name: 'contact-us',
+            builder: (context, state) => const ContactUsScreen(),
           ),
         ],
       ),

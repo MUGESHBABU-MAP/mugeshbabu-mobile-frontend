@@ -39,9 +39,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {
-              // TODO: Navigate to notifications
-            },
+            onPressed: () => context.go('/home/notifications'),
           ),
           IconButton(
             icon: const Icon(Icons.person_outline),
@@ -72,12 +70,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Welcome back!',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        'Welcome back!',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Text(
+                          'BETA',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -138,11 +156,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   },
                 ),
                 ServiceCard(
-                  title: 'Support',
-                  subtitle: 'Raise & Track Tickets',
-                  icon: Icons.support_agent,
+                  title: 'Contact Us',
+                  subtitle: 'Get Help & Support',
+                  icon: Icons.contact_support,
                   color: Colors.orange,
-                  onTap: () => context.go('/home/support'),
+                  onTap: () => context.go('/home/contact-us'),
                 ),
               ],
             ),

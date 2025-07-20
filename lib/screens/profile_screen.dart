@@ -378,11 +378,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     leading: Icon(Icons.notifications, color: Colors.green),
                     title: const Text('Notifications'),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Notification settings coming soon!')),
-                      );
-                    },
+                    onTap: () => context.go('/home/notifications'),
                   ),
                   const Divider(height: 1),
                   ListTile(
