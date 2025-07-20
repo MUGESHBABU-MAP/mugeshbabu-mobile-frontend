@@ -101,16 +101,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               page.imagePath,
                               fit: BoxFit.contain,
                               errorBuilder: (context, error, stackTrace) {
-                                // Fallback when image is not found
+                                // Enhanced fallback with better visual design
                                 return Container(
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Theme.of(context).primaryColor.withOpacity(0.1),
+                                        Theme.of(context).primaryColor.withOpacity(0.05),
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Icon(
-                                    _getIconForPage(index),
-                                    size: 120,
-                                    color: Theme.of(context).primaryColor,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(24),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor.withOpacity(0.1),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                          _getIconForPage(index),
+                                          size: 80,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      _buildServiceIcons(context, index),
+                                    ],
                                   ),
                                 );
                               },
@@ -198,15 +219,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Additional info for last page
-                  if (_currentPage == _pages.length - 1)
-                    Text(
-                      'Join thousands of satisfied customers',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[500],
-                      ),
-                      textAlign: TextAlign.center,
+                  // Additional info for each page
+                  Text(
+                    _getPageSubtext(_currentPage),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.grey[500],
                     ),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
@@ -226,6 +246,65 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         return Icons.payment_outlined;
       default:
         return Icons.apps_outlined;
+    }
+  }
+
+  Widget _buildServiceIcons(BuildContext context, int index) {
+    List<IconData> icons;
+    List<Color> colors;
+    
+    switch (index) {
+      case 0: // Welcome page
+        icons = [Icons.tv, Icons.wifi, Icons.receipt, Icons.support_agent];
+        colors = [Colors.purple, Colors.blue, Colors.green, Colors.orange];
+        break;
+      case 1: // Manage services
+        icons = [Icons.dashboard, Icons.toggle_on, Icons.router, Icons.cable];
+        colors = [Colors.indigo, Colors.teal, Colors.blue, Colors.purple];
+        break;
+      case 2: // Bill payments
+        icons = [Icons.payment, Icons.flash_on, Icons.water_drop, Icons.check_circle];
+        colors = [Colors.green, Colors.amber, Colors.blue, Colors.green];
+        break;
+      default:
+        icons = [Icons.apps];
+        colors = [Theme.of(context).primaryColor];
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: icons.asMap().entries.map((entry) {
+        final iconIndex = entry.key;
+        final icon = entry.value;
+        final color = colors[iconIndex % colors.length];
+        
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(
+            icon,
+            size: 24,
+            color: color,
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  String _getPageSubtext(int index) {
+    switch (index) {
+      case 0:
+        return 'Everything you need in one place';
+      case 1:
+        return 'Stay organized and in control';
+      case 2:
+        return 'Join thousands of satisfied customers';
+      default:
+        return 'Welcome to Mugeshbabu';
     }
   }
 }
