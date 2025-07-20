@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -320,6 +322,31 @@ class ApiService {
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('Failed to quick login: ${e.toString()}');
+    }
+  }
+
+  // Health check to initialize backend - fire and forget, non-blocking
+  void healthCheck() {
+    developer.log('Calling health check API to initialize backend...', name: 'ApiService');
+    
+    // Fire and forget - don't await this call
+    unawaited(_performHealthCheck());
+  }
+
+  Future<void> _performHealthCheck() async {
+    try {
+      final response = await _client.get(
+        Uri.parse('$_baseUrl/api/health'),
+        headers: _headers,
+      ).timeout(_timeout);
+
+      developer.log('Health check response: ${response.statusCode}', name: 'ApiService');
+      
+      // We don't need to process the response, just make the call
+      // This is purely to wake up/initialize the backend
+    } catch (e) {
+      // Silently handle errors - health check is not critical for app functionality
+      developer.log('Health check failed (non-critical): $e', name: 'ApiService', level: 900);
     }
   }
 

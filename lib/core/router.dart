@@ -10,6 +10,7 @@ import '../screens/bill_payment_screen.dart';
 import '../screens/support_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/services_screen.dart';
+import '../screens/legal_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -93,6 +94,11 @@ class AppRouter {
             path: 'services',
             name: 'services',
             builder: (context, state) => const ServicesScreen(),
+          ),
+          GoRoute(
+            path: 'legal',
+            name: 'legal',
+            builder: (context, state) => const LegalScreen(),
           ),
         ],
       ),

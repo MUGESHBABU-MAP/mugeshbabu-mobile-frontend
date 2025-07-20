@@ -24,8 +24,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   // Mock user data
   final Map<String, dynamic> _userData = {
-    'name': 'Mugesh Babu',
-    'email': 'mugesh@example.com',
+    'name': 'User Name',
+    'email': 'demouser.in@gmail.com',
     'phone': '+91 98765 43210',
     'joinDate': '2024-01-15',
     'totalServices': 3,
@@ -49,22 +49,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       'date': '2025-07-10',
       'status': 'Success',
       'method': 'Card',
-    },
-    {
-      'id': 'TXN003',
-      'service': 'Electricity Bill',
-      'amount': 2450,
-      'date': '2025-07-05',
-      'status': 'Success',
-      'method': 'Net Banking',
-    },
-    {
-      'id': 'TXN004',
-      'service': 'Water Bill',
-      'amount': 850,
-      'date': '2025-06-28',
-      'status': 'Failed',
-      'method': 'UPI',
     },
   ];
 
@@ -411,6 +395,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       );
                     },
                   ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: Icon(Icons.gavel, color: Colors.indigo),
+                    title: const Text('Legal'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () => context.go('/home/legal'),
+                  ),
                 ],
               ),
             ),
@@ -553,12 +544,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         return Icons.tv;
       case 'internet':
         return Icons.wifi;
-      case 'electricity bill':
-        return Icons.flash_on;
-      case 'water bill':
-        return Icons.water_drop;
-      case 'gas bill':
-        return Icons.local_fire_department;
       default:
         return Icons.receipt;
     }

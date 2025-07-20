@@ -7,7 +7,7 @@ A comprehensive cross-platform mobile application built with Flutter that serves
 ### 📱 Core Services
 - **Cable TV Management**: View current plans, recharge packages, and manage subscriptions
 - **Internet Plans**: Monitor data usage, renew plans, and check service status
-- **Bill Payments**: Pay utility bills (Electricity, Water, Gas, etc.) with secure transactions
+- **Bill Payments**: Pay utility bills (Internet, Cable, etc.) with secure transactions
 - **Support System**: Raise tickets, track complaints, and get customer support
 
 ### 🎨 User Experience

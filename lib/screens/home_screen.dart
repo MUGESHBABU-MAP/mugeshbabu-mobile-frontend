@@ -126,7 +126,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   subtitle: 'Pay Utility Bills',
                   icon: Icons.receipt_long,
                   color: Colors.green,
-                  onTap: () => context.go('/home/bill-payment'),
+                  isEnabled: false,
+                  comingSoonText: 'Coming Soon',
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Bill Payment feature coming soon!'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
                 ),
                 ServiceCard(
                   title: 'Support',

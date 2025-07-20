@@ -20,10 +20,6 @@ class AppConstants {
   
   // Service Types
   static const List<String> billTypes = [
-    'Electricity',
-    'Water',
-    'Gas',
-    'Telephone',
     'Internet',
     'Cable TV',
   ];
