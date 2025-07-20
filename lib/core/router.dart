@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../screens/onboarding_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/cable_tv_screen.dart';
@@ -14,12 +15,19 @@ class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/',
     redirect: (context, state) async {
-      // Check if user wants to skip login
       final prefs = await SharedPreferences.getInstance();
+      final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
       final skipLogin = prefs.getBool('skip_login') ?? false;
+      final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
       
       if (state.fullPath == '/') {
-        return skipLogin ? '/home' : '/login';
+        if (!hasSeenOnboarding) {
+          return '/onboarding';
+        } else if (isLoggedIn || skipLogin) {
+          return '/home';
+        } else {
+          return '/login';
+        }
       }
       return null;
     },
@@ -28,9 +36,23 @@ class AppRouter {
         path: '/',
         redirect: (context, state) async {
           final prefs = await SharedPreferences.getInstance();
+          final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
           final skipLogin = prefs.getBool('skip_login') ?? false;
-          return skipLogin ? '/home' : '/login';
+          final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
+          
+          if (!hasSeenOnboarding) {
+            return '/onboarding';
+          } else if (isLoggedIn || skipLogin) {
+            return '/home';
+          } else {
+            return '/login';
+          }
         },
+      ),
+      GoRoute(
+        path: '/onboarding',
+        name: 'onboarding',
+        builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
         path: '/login',
